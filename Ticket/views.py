@@ -14,6 +14,8 @@ def book(request):
         employee=request.data['employee']
         user = User.objects.get(username=employee)
         cust=Customer.objects.get(user=user)
+        if request.user.is_staff==False:
+            return Response({"Response":"You are not an admin"})
         ticket=Ticket.objects.create(title=title,description=description,assignedTo=cust)
         return Response({"message":ticket.id})
     return Response({"title":"","description":"","employee":""})
@@ -49,8 +51,15 @@ def markAsClosed(request):
     if request.method == "POST":
         ticketId = int(request.data['ticketId'])
         ticket=Ticket.objects.get(id=ticketId)
+        cpr=ticket.priority
+        cust=Customer.objects.get(user=request.user)
+        userticket=Ticket.objects.filter(assignedTo=cust)
+        for ticket in userticket:
+            if ((cpr=="Low" and ticket.priority=="Medium") or (cpr=="Low" and ticket.priority=="High")or(cpr=="Medium" and ticket.priority=="High")) :
+                return Response({"Response":"u have assign a more priority already"})
         if request.user==ticket.assignedTo.user or request.user.is_staff:
             ticket.status="close"
+            ticket.save()
         else:
             return Response({"msg":"U are not authorized"})
         return Response({"message":ticket.id})

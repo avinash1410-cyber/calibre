@@ -11,5 +11,6 @@ def Home(request):
         "api/token/":"Token genration",
         "api/token/refresh/":"Refresh token",
         "api/token/verify/":"Verify tokwn",
+        "tickets/<str>":"search",
     }
     return Response(dictionary)
