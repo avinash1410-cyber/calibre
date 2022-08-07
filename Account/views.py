@@ -2,7 +2,6 @@ from .models import Customer
 from rest_framework.decorators import api_view
 from django.contrib.auth.models import User
 from rest_framework.response import Response
-from rest_framework.authtoken.models import Token
 
 @api_view(('GET','POST'))
 def register_page(request):
@@ -18,6 +17,5 @@ def register_page(request):
             user=user,
             role=role,
         )
-        token = Token.objects.create(user=user)
-        return Response({"Token":token.key})
+        return Response({"message":"user created api/token/ for token genration"})
     return Response({"username":"","password":"","role":""})
