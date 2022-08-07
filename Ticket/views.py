@@ -55,14 +55,14 @@ def markAsClosed(request):
         cust=Customer.objects.get(user=request.user)
         userticket=Ticket.objects.filter(assignedTo=cust)
         for ticket in userticket:
-            if ((cpr=="Low" and ticket.priority=="Medium") or (cpr=="Low" and ticket.priority=="High")or(cpr=="Medium" and ticket.priority=="High")) :
+            if ((cpr=="Low" and ticket.priority=="Medium") or (cpr=="Low" and ticket.priority=="High")or(cpr=="Medium" and ticket.priority=="High")):
                 return Response({"Response":"u have assign a more priority already"})
         if request.user==ticket.assignedTo.user or request.user.is_staff:
             ticket.status="close"
             ticket.save()
+            return Response({"message":ticket.id})
         else:
             return Response({"msg":"U are not authorized"})
-        return Response({"message":ticket.id})
     return Response({"ticketId":""})
 
 
