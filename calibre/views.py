@@ -8,6 +8,8 @@ def Home(request):
         "tickets/new":"create ticket",
         "tickets/markasclosed":"mark as closed",
         "tickets/delete":"delet ticket",
-        "users/getToken":"get token for user"
+        "api/token/":"Token genration",
+        "api/token/refresh/":"Refresh token",
+        "api/token/verify/":"Verify tokwn",
     }
     return Response(dictionary)

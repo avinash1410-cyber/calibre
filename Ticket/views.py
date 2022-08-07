@@ -57,6 +57,7 @@ def markAsClosed(request):
     return Response({"ticketId":""})
 
 
+
 @api_view(('GET','POST'))
 def delete(request):
     if request.method == "POST":
