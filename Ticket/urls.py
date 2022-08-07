@@ -4,6 +4,6 @@ urlpatterns = [
     path('new/',book),
     path('all/',all),
     path('markAsClosed/',markAsClosed),
+    path('delete/',delete),
     path('<str:search>/',query),
-    path('delete/',delete)
 ]

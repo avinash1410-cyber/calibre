@@ -47,7 +47,7 @@ def all(request):
 @api_view(('GET','POST'))
 def markAsClosed(request):
     if request.method == "POST":
-        ticketId = request.data['ticketId']
+        ticketId = int(request.data['ticketId'])
         ticket=Ticket.objects.get(id=ticketId)
         if request.user==ticket.assignedTo.user or request.user.is_staff:
             ticket.status="close"
